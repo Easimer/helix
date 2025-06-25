@@ -521,7 +521,7 @@ pub fn copy_xattr(src: &Path, dst: &Path) -> io::Result<()> {
         ));
     }
 
-    let size = match rustix::fs::listxattr(src, &mut [])? {
+    let size = match rustix::fs::listxattr(src, &mut [] as &mut [u8])? {
         0 => return Ok(()), // No attributes
         len => len,
     };
@@ -549,7 +549,7 @@ pub fn copy_xattr(src: &Path, dst: &Path) -> io::Result<()> {
         let key = CStr::from_bytes_with_nul(conv)
             .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e))?;
 
-        let attr_len = rustix::fs::getxattr(src, key, &mut [])?;
+        let attr_len = rustix::fs::getxattr(src, key, &mut [] as &mut [u8])?;
         max_val_len = max_val_len.max(attr_len);
     }
 
