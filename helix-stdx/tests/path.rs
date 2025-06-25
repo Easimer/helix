@@ -1,6 +1,10 @@
 #![cfg(windows)]
 
-use std::{env::set_current_dir, error::Error, path::Component};
+use std::{
+    env::set_current_dir,
+    error::Error,
+    path::{Component, Path, PathBuf},
+};
 
 use helix_stdx::path;
 use tempfile::Builder;
